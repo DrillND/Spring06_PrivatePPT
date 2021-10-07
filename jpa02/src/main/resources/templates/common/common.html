@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head(title)">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title th:text="${title}">Top navbar Bootstrap v5.1</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbar-static/">
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <meta name="theme-color" content="#7952b3">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+        *{
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="" th:href="@{/starter/starter-template.css}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+
+<body>
+    
+    <nav th:fragment="nav(menu)" class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" th:href="@{/}">Spring boot</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${menu} == 'home'? 'active'" aria-current="page" href="#" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${menu} == 'login'? 'active'" href="#" th:href="@{/members/login}" sec:authorize="isAnonymous()">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${menu} == 'logout'? 'active'" href="#" th:href="@{/members/logout}" sec:authorize="isAuthenticated()">로그아웃</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${menu} == 'sign'? 'active'" href="#" th:href="@{/members/sign}" sec:authorize="isAnonymous()">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${menu} == 'chart'? 'active'" href="#" th:href="@{/chart}">차트</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${menu} == 'board'? 'active'" href="#" th:href="@{/board/list}">게시판</a>
+                    </li>
+                </ul>
+                <form th:action="@{/board/list}" method="get" class="d-flex">
+                    <input class="form-control me-2" type="search"
+                           placeholder="Search" aria-label="Search"
+                            name="searchtxt"
+                           th:value="${param.searchtxt}">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="bg-light p-5 rounded">
+            <h1>Navbar example</h1>
+            <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you
+                scroll, this navbar remains in its original position and moves with the rest of the page.</p>
+            <a class="btn btn-lg btn-primary" href="/docs/5.1/components/navbar/" role="button">View navbar docs
+                &raquo;</a>
+        </div>
+    </main>
+
+
+    <footer class="bg-dark p-3" th:fragment="footer">
+        <div class="d-flex justify-content-center " style="color: white;">
+            꿈꾸는 개발자 copy right
+        </div>
+        <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js"
+                th:src="@{/js/bootstrap.bundle.min.js}">
+        </script>
+    </footer>
+
+
+</body>
+
+</html>

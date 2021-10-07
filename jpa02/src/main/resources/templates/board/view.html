@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common/common :: head('board')">
+</head>
+
+<body>
+
+    <nav th:replace="common/common :: nav('board')">
+
+    </nav>
+
+    <main class="container">
+        <div class="bg-light p-5 rounded">
+            <h1>게시판</h1>
+        </div>
+    </main>
+
+    <div class="container p-5 rounded">
+        <div class="mb-3">
+            <label for="title" class="form-label">제목</label>
+            <div id="title" th:text="${board.title}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <div id="content" th:text="${board.content}"></div>
+        </div>
+        <a th:href="@{/board/list}" class="btn btn-primary">목록</a>
+        <div id="delete" class="btn btn-primary">삭제</div>
+        <!--        <div id="delete" class="btn btn-primary" th:onclick="doDelete();">삭제</div>-->
+        <a th:href="@{/board/form(id=${board.id})}" class="btn btn-primary">수정</a>
+
+        <div class="row m-1">
+            댓글
+            <div class="border" th:each="boardtail : ${board.boardTailList}">
+                <div>
+                    <div>이름 <span th:text="${boardtail.tuser_name}"></span> </div>
+                </div>
+                <div>
+                    <div>내용</div>
+                    <div th:text="${boardtail.tcontent}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top mt-2">
+            <form th:action="@{/boardtail/form}" method="post">
+                <input type="hidden" name="board_id" th:value="${board.id}">
+                <div class="row p-3">
+                    <label class="form-label" for="user_name">작성자(*)</label>
+                    <input class="form-control" id="user_name" name="tuser_name" value="" type="text">
+                </div>
+                <div class="row p-3">
+                    <label class="form-label" for="tcontent">내용(*)</label>
+                    <textarea class="form-control" id="tcontent" name="tcontent" ></textarea>
+                </div>
+                <input class="btn btn-primary" type="submit" value="댓글저장">
+            </form>
+        </div>
+    </div>
+
+    <footer th:replace="common/common :: footer">
+    </footer>
+    <script>
+        /*function doDelete(){
+            var result = confirm('삭제하시겠습니까?');
+            if(result == true){
+                location.href='/board/delete?id=[[${board.id}]]';
+            }
+        }*/
+        $('#delete').on('click', function () {
+            var result = confirm('삭제하시겠습니까?');
+            if (result == true) {
+                location.href = '/board/delete?id=[[${board.id}]]';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
